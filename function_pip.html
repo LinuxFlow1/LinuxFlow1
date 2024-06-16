@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Плагин Gemini PiP</title>
+    <style>
+        #pipContainer {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 300px;
+            height: 200px;
+            border: 2px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        #pipHeader {
+            background: #007bff;
+            color: #fff;
+            padding: 5px;
+            cursor: move;
+        }
+        #pipClose {
+            float: right;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button id="openPip">Открыть интерфейс Gemini в PiP</button>
+    <div id="pipContainer">
+        <div id="pipHeader">Gemini PiP <span id="pipClose">X</span></div>
+        <iframe id="pipIframe" src="" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+    </div>
+
+    <script>
+        // Устанавливаем ссылки и ключи API
+        const GEMINI_API_URL = 'https://gemini.google.com/app/'; //
+        const GEMINI_API_KEY = 'AIzaSyAsqrHQTVdr6jrfKFG5_jJFg4EOFvNdfno'; //
+
+        // Функция открытия PiP окна
+        document.getElementById('openPip').addEventListener('click', function() {
+            const pipContainer = document.getElementById('pipContainer');
+            const pipIframe = document.getElementById('pipIframe');
+            pipIframe.src = `${GEMINI_API_URL}?api_key=${GEMINI_API_KEY}`; // Замените на URL вашего интерфейса
+            pipContainer.style.display = 'block';
+        });
+
+        // Функция закрытия PiP окна
+        document.getElementById('pipClose').addEventListener('click', function() {
+            document.getElementById('pipContainer').style.display = 'none';
+        });
+
+        // Функция для перемещения окна PiP
+        dragElement(document.getElementById('pipContainer'));
+
+        function dragElement(element) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            const header = document.getElementById('pipHeader');
+            if (header) {
+                header.onmousedown = dragMouseDown;
+            } else {
+                element.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+</body>
+</html>
