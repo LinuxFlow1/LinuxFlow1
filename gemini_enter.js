@@ -4,7 +4,7 @@
     // Константы для API Gemini
     const GEMINI_API_URL = 'https://gemini.google.com/app/';
     const GEMINI_API_KEY = 'AIzaSyAsqrHQTVdr6jrfKFG5_jJFg4EOFvNdfno';
-    const GEMINI_ICON_URL = 'https://github.com/LinuxFlow1/icon.png';
+    const GEMINI_ICON_URL = 'https://github.com/LinuxFlow1/google-gemini-icon.webp';
 
     // Основная функция инициализации плагина
     function initPlugin() {
@@ -13,7 +13,7 @@
             name: 'Gemini', 
             link: 'plugin_gemini', 
             description: 'Интеграция с Gemini 1.0 APK', 
-            icon: GEMINI_ICON_URL // Используем правильный формат и ссылку
+            icon: google-gemini-icon.webp //
         });
 
         // Обработчик выбора меню
