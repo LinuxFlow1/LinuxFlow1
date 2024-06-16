@@ -13,7 +13,7 @@
             name: 'Gemini', 
             link: 'plugin_gemini', 
             description: 'Интеграция с Gemini 1.0 APK', 
-            icon: google-gemini-icon.webp //
+            icon: 'google-gemini-icon.webp' //
         });
 
         // Обработчик выбора меню
